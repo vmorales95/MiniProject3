@@ -1,0 +1,41 @@
+---
+title: "Real_Mini_Project_3"
+author: "Paige E. Patrick"
+date: "11/17/2017"
+output: html_document
+---
+
+```{r}
+library(mdsr)
+library(RMySQL)
+db <- dbConnect_scidb(dbname = "imdb")
+```
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(dbplyr)
+```
+
+```{r}
+this_big_thing <- db %>%
+dbGetQuery("SELECT mi.info_type_id, mi.info, 
+t.title, t.kind_id, t.production_year, t.id, 
+mc.company_id, mc.company_type_id,
+cn.name
+FROM title t
+JOIN movie_info mi ON t.id = mi.movie_id
+JOIN movie_companies mc ON mc.movie_id = mi.movie_id
+JOIN company_name cn ON cn.id = mc.company_id
+WHERE mi.info_type_id = 3
+AND t.kind_id = 1;")
+```
+
+```{r}
+movie_genre <- this_big_thing %>%
+  group_by(production_year) %>%
+  mutate(genre_total = sum(info))
+```
+
+
+
