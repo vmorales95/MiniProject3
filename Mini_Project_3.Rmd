@@ -19,9 +19,9 @@ library(dbplyr)
 
 ```{r}
 this_big_thing <- db %>%
-dbGetQuery("SELECT mi.info_type_id, mi.info, 
-t.title, t.kind_id, t.production_year, t.id, 
-mc.company_id, mc.company_type_id,
+dbGetQuery("SELECT mi.info, 
+t.title, t.production_year, t.id, 
+mc.company_id,
 cn.name
 FROM title t
 JOIN movie_info mi ON t.id = mi.movie_id
@@ -33,9 +33,35 @@ AND t.kind_id = 1;")
 
 ```{r}
 movie_genre <- this_big_thing %>%
-  group_by(production_year) %>%
-  mutate(genre_total = sum(info))
+  group_by(production_year, info) %>%
+  summarise(genre_observed = n()) %>%
+  mutate(genre_percentage = genre_observed/sum(genre_observed)) %>%
+  arrange(desc(genre_percentage)) %>%
+  filter(production_year < 2018)
 ```
 
+```{r}
+movie_genre_pre_1947 <- this_big_thing %>%
+  group_by(info) %>%
+  filter(production_year < 1947) %>%
+  summarise(genre_observed = n()) %>%
+  mutate(genre_percentage = genre_observed/sum(genre_observed))
+```
 
+```{r}
+movie_genre_post_1947 <- this_big_thing %>%
+  group_by(info) %>%
+  summarise(genre_observed = n()) %>%
+  mutate(genre_percentage = genre_observed/sum(genre_observed)) %>%
+  filter(production_year > 1946, production_year < 2018) %>%
+  arrange(desc(genre_percentage))
+```
+
+```{r}
+title_genre <- this_big_thing %>%
+  group_by(production_year, title) %>%
+  summarise(title_observed = n()) %>%
+  mutate(title_percentage = title_observed/sum(title_observed)) %>%
+  filter(production_year < 2018)
+```
 
