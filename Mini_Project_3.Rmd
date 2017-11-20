@@ -60,8 +60,5 @@ title_genre <- this_big_thing %>%
   filter(production_year < 2018)
 ```
 
-```{r}
-
-```
 
 
