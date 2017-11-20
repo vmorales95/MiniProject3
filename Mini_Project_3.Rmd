@@ -28,12 +28,6 @@ AND t.kind_id = 1;")
 ```
 
 ```{r}
-movie_genre <- this_big_thing %>%
-  group_by(info) %>%
-  summarise(n_obvs = n())
-```
-
-```{r}
 title_genre <- this_big_thing %>%
   group_by(production_year, id) %>%
   summarise(genres_observed = n()) %>%
@@ -41,67 +35,18 @@ title_genre <- this_big_thing %>%
 ```
 
 ```{r}
-genre_count_pre_1947 <- this_big_thing %>%
-  group_by(production_year, id) %>%
-  summarise(genres_observed = n()) %>%
-  filter(production_year < 1947)
-```
-
-```{r}
-genre_count_post_1947 <- this_big_thing %>%
-  group_by(production_year, id) %>%
-  summarise(genres_observed = n()) %>%
-  filter(production_year > 1946, production_year < 2018)
-```
-<<<<<<< HEAD
-```{r}
-
-ggplot(movie_genre, aes(x=n_obvs, y=info)) + geom_point(shape=1)
-```
-
-
-=======
-
-```{r}
-avg_genre_count <- title_genre %>%
-  group_by(production_year) %>%
-  summarise(average_genre_count = mean(genres_observed))
-```
-
-```{r}
-max_genre_count <- title_genre %>%
-  group_by(production_year) %>%
-  summarise(max_genre_count = max(genres_observed))
-```
-
-```{r}
-min_genre_count <- title_genre %>%
-  group_by(production_year) %>%
-  summarise(min_genre_count = min(genres_observed))
-```
-
-```{r}
-ggplot(avg_genre_count, aes(x =production_year, y = average_genre_count)) +
-geom_line()
-```
-
-```{r}
-ggplot(max_genre_count, aes(x = production_year, y = max_genre_count)) +
-geom_line()
-```
-
-```{r}
-<<<<<<< HEAD
 avg_max_genre_count <- title_genre %>%
   group_by(production_year) %>%
   summarise(max_genre_count = max(genres_observed), average_genre_count = mean(genres_observed))
 ```
+
 ```{r}
 ggplot(avg_max_genre_count, aes()) + 
   geom_line(aes(x = production_year, y = average_genre_count)) + 
   geom_line(aes(x = production_year, y = max_genre_count))
 ```
-=======
+
+```{r}
 genre_breakdown <- this_big_thing %>%
   group_by(production_year, info) %>%
   summarise(genres_observed = n()) %>%
@@ -114,18 +59,4 @@ geom_line() +
   facet_wrap("info")
 ```
 
-```{r}
-
-```
-
-
-
-
-
-
-
-
->>>>>>> bbdaec12899b84c243adf753bdf0f2e5d0405ec9
-
-```{r}
 
