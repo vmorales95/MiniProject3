@@ -51,5 +51,11 @@ genre_count_pre_1947 <- this_big_thing %>%
 genre_count_post_1947 <- this_big_thing %>%
   group_by(production_year, id) %>%
   summarise(genres_observed = n()) %>%
-  filter(production_year > 1946)
+  filter(production_year > 1946, production_year < 2018)
 ```
+```{r}
+
+ggplot(movie_genre, aes(x=n_obvs, y=info)) + geom_point(shape=1)
+```
+
+
