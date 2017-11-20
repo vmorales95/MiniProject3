@@ -82,6 +82,30 @@ ggplot(max_genre_count, aes(x = production_year, y = max_genre_count)) +
 geom_line()
 ```
 
+```{r}
+genre_breakdown <- this_big_thing %>%
+  group_by(production_year, info) %>%
+  summarise(genres_observed = n()) %>%
+  filter(production_year < 2018)
+```
+
+```{r}
+ggplot(genre_breakdown, aes(x = production_year, y = genres_observed)) +
+geom_line() +
+  facet_wrap("info")
+```
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
 
 
 
