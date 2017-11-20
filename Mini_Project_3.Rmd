@@ -91,6 +91,7 @@ geom_line()
 ```
 
 ```{r}
+<<<<<<< HEAD
 avg_max_genre_count <- title_genre %>%
   group_by(production_year) %>%
   summarise(max_genre_count = max(genres_observed), average_genre_count = mean(genres_observed))
@@ -100,6 +101,31 @@ ggplot(avg_max_genre_count, aes()) +
   geom_line(aes(x = production_year, y = average_genre_count)) + 
   geom_line(aes(x = production_year, y = max_genre_count))
 ```
+=======
+genre_breakdown <- this_big_thing %>%
+  group_by(production_year, info) %>%
+  summarise(genres_observed = n()) %>%
+  filter(production_year < 2018)
+```
+
+```{r}
+ggplot(genre_breakdown, aes(x = production_year, y = genres_observed)) +
+geom_line() +
+  facet_wrap("info")
+```
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+>>>>>>> bbdaec12899b84c243adf753bdf0f2e5d0405ec9
 
 ```{r}
 
