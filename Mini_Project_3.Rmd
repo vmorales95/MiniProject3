@@ -55,7 +55,7 @@ post_47 <- this_big_thing %>%
 ```
 ```{r}
 multi_genre <- this_big_thing %>%
-  group_by(title) %>%]
+  group_by(title) %>%
   filter(production_year > 1947) %>%
   arrange(desc(total_genre))
 ```
