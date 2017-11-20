@@ -29,65 +29,27 @@ AND t.kind_id = 1;")
 
 ```{r}
 movie_genre <- this_big_thing %>%
-<<<<<<< HEAD
   group_by(info) %>%
   summarise(n_obvs = n())
-
-=======
-  group_by(production_year, info) %>%
-  summarise(genre_observed = n()) %>%
-  mutate(genre_percentage = genre_observed/sum(genre_observed)) %>%
-  arrange(desc(genre_percentage)) %>%
-  filter(production_year < 2018)
->>>>>>> d0a4d61392752a4dde97b5d86afab4d1e5783e59
-```
-```{r}
-pre_47 <- this_big_thing %>%
-  group_by(info) %>%
-  filter(production_year < 1947) %>%
-  summarize(genre_number = n()) %>%
-  arrange(desc(genre_number))
-
-<<<<<<< HEAD
-```
-
-```{r}
-post_47 <- this_big_thing %>%
-  group_by(info) %>%
-  filter(production_year > 1947) %>%
-  summarize(genre_number = n()) %>%
-  arrange(desc(genre_number))
-```
-```{r}
-multi_genre <- this_big_thing %>%
-  group_by(title) %>%
-  filter(production_year > 1947) %>%
-  arrange(desc(total_genre))
-=======
-```{r}
-movie_genre_pre_1947 <- this_big_thing %>%
-  group_by(info) %>%
-  filter(production_year < 1947) %>%
-  summarise(genre_observed = n()) %>%
-  mutate(genre_percentage = genre_observed/sum(genre_observed))
-```
-
-```{r}
-movie_genre_post_1947 <- this_big_thing %>%
-  group_by(info) %>%
-  summarise(genre_observed = n()) %>% 
-  mutate(genre_percentage = genre_observed/sum(genre_observed)) %>%
-  filter(production_year > 1946, production_year < 2018) %>%
-  arrange(desc(genre_percentage))
 ```
 
 ```{r}
 title_genre <- this_big_thing %>%
-  group_by(production_year, title) %>%
-  summarise(title_observed = n()) %>%
+  group_by(production_year, id) %>%
+  summarise(genres_observed = n()) %>%
   filter(production_year < 2018)
->>>>>>> d0a4d61392752a4dde97b5d86afab4d1e5783e59
 ```
 
+```{r}
+genre_count_pre_1947 <- this_big_thing %>%
+  group_by(production_year, id) %>%
+  summarise(genres_observed = n()) %>%
+  filter(production_year < 1947)
+```
 
-
+```{r}
+genre_count_post_1947 <- this_big_thing %>%
+  group_by(production_year, id) %>%
+  summarise(genres_observed = n()) %>%
+  filter(production_year > 1946)
+```
