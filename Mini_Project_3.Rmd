@@ -33,9 +33,26 @@ AND t.kind_id = 1;")
 
 ```{r}
 movie_genre <- this_big_thing %>%
-  group_by(production_year) %>%
-  mutate(genre_total = sum(info))
+  group_by(info) %>%
+  summarise(n_obvs = n())
+
+```
+```{r}
+pre_47 <- this_big_thing %>%
+  group_by(info) %>%
+  filter(production_year < 1947) %>%
+  summarize(genre_number = n()) %>%
+  arrange(desc(genre_number))
+
 ```
 
+```{r}
+post_47 <- this_big_thing %>%
+  group_by(info) %>%
+  filter(production_year > 1947) %>%
+  summarize(genre_number = n()) %>%
+  arrange(desc(genre_number))
+```
+```{r}
 
 
