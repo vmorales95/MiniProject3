@@ -18,7 +18,7 @@ library(dbplyr)
 ```
 
 ```{r}
-this_big_thing <- db %>%
+sql_genre_data <- db %>%
 dbGetQuery("SELECT mi.info, 
 t.title, t.production_year, t.id
 FROM title t
@@ -28,26 +28,40 @@ AND t.kind_id = 1;")
 ```
 
 ```{r}
-title_genre <- this_big_thing %>%
+genre_count <- sql_genre_data %>%
   group_by(production_year, id) %>%
   summarise(genres_observed = n()) %>%
   filter(production_year < 2018)
 ```
 
 ```{r}
-avg_max_genre_count <- title_genre %>%
+genre_max_and_avg_count <- genre_count %>%
   group_by(production_year) %>%
   summarise(max_genre_count = max(genres_observed), average_genre_count = mean(genres_observed))
 ```
 
 ```{r}
-ggplot(avg_max_genre_count, aes()) + 
-  geom_line(aes(x = production_year, y = average_genre_count)) + 
-  geom_line(aes(x = production_year, y = max_genre_count))
+ggplot(genre_max_and_avg_count, aes()) + 
+  geom_line(aes(x = production_year, y = max_genre_count), colour = "red4", size = 1.5) +
+  geom_line(aes(x = production_year, y = average_genre_count), colour = "magenta4", size = 1.5) +
+    ggtitle("Number of Genres Used in Movies,\nRecorded By IMDb") +
+    scale_x_continuous("Production Year", breaks = c(1880, 1900, 1920, 1940, 1960, 1980, 2000, 2020)) +
+    scale_y_continuous("Number of Genres Recorded", breaks = c(2, 4, 6, 8, 10, 12, 14)) +
+    annotate("text", x = 2010, y = 3, label = "AVERAGE", colour = "magenta4", size = 7, face = "bold") +
+    annotate("text", x = 2010, y = 6, label = "MAXIMUM", colour = "red4", size = 7, face = "bold") +
+    theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), 
+        axis.ticks.length = unit(0.25, "cm"),
+        legend.title = element_text(size = 15), 
+        legend.text = element_text(size = 13),
+        axis.title = element_text(size = 20),
+        axis.text = element_text(size = 15),
+        panel.background = element_rect(fill = "cadetblue2"),
+        panel.grid.major = element_line(colour = "cadetblue3"),
+        panel.grid.minor = element_line(colour = "cadetblue3"))
 ```
 
 ```{r}
-genre_breakdown <- this_big_thing %>%
+genre_breakdown <- sql_genre_data %>%
   group_by(production_year, info) %>%
   summarise(genres_observed = n()) %>%
   filter(production_year < 2018)
@@ -58,5 +72,11 @@ ggplot(genre_breakdown, aes(x = production_year, y = genres_observed)) +
 geom_line() +
   facet_wrap("info")
 ```
+
+
+
+
+
+
 
 
