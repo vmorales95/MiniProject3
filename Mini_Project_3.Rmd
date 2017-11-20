@@ -20,13 +20,9 @@ library(dbplyr)
 ```{r}
 this_big_thing <- db %>%
 dbGetQuery("SELECT mi.info, 
-t.title, t.production_year, t.id, 
-mc.company_id,
-cn.name
+t.title, t.production_year, t.id
 FROM title t
 JOIN movie_info mi ON t.id = mi.movie_id
-JOIN movie_companies mc ON mc.movie_id = mi.movie_id
-JOIN company_name cn ON cn.id = mc.company_id
 WHERE mi.info_type_id = 3
 AND t.kind_id = 1;")
 ```
@@ -61,7 +57,11 @@ movie_genre_post_1947 <- this_big_thing %>%
 title_genre <- this_big_thing %>%
   group_by(production_year, title) %>%
   summarise(title_observed = n()) %>%
-  mutate(title_percentage = title_observed/sum(title_observed)) %>%
   filter(production_year < 2018)
 ```
+
+```{r}
+
+```
+
 
