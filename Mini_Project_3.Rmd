@@ -1,6 +1,6 @@
 ---
 title: "Real_Mini_Project_3"
-author: "Paige E. Patrick"
+author: "Paige E. Patrick and Vanessa Morales"
 date: "11/17/2017"
 output: html_document
 ---
@@ -98,9 +98,32 @@ geom_line(colour = "red4", size = 1) +
   facet_wrap("info")
 ```
 
-Yo Paige, I just want to make triple sure you get this. <3 v.
 
-AWWWE <3
+
+##Genre Multiplicity
+
+We are interested in seeing any trends in movie genres, and seeing if there are more movie genres currently used than previously due to either shifts in production company organization, or any other factors we could discern. Initially, we believed that movies made presently would be categorized with multiple genres and that older movies that fit squarely into one genre.  
+
+In researching our above inquiry, we hypothesized that there would be more genres used today than classic or older movies tended to. However, our data wrangling showed an overall steady use of genre-identification to be around 2-3. What was interesting is that while the overall trend has stayed the same what has increased is the maximum number of genres used in the description of a film.  Why might this be?  We believe that experimental marketing causes some films to be tagged with an unusually high number of genres, getting as high as 15 as shown on our graph. However, this is shown as the max, and not the average; perhaps 2-3 genres is an amount consumers have responded well to traditionally and so it is used as a standard. 
+
+We compiled the data on the popularity of each movie genre according to IMDb starting from 1874 to 2012 which is the most recent year available. Most genres stay relatively consistent, such as Family, Action, and Romance. A notable outlier is the graph of the Film-Noir genre. It relays a distinct and brief period of popularity, from 1944-1954. The beginning of the genre can be attributed to the start of a new trend and style that hadn't existed previously. The moody black and white quality of noir films ceased to be popular after color movies took off in popularity in the mid 1950s as well as the increasing popularity of television. 
+
+The Talk-Show, Reality Tv, and Game-Show graphs all show a direct correlation with the increase in home-televisions in households around the mid-1950s. These types of tv-specific genres would not exist unless television was something people connected with. 
+
+Lastly, we notice a large uptick in the popularity of the Short movie genre. We believe this is telling in that this might relate to people's decreasing attention spans, the popularity of You-Tube, the fixation on Facebook and other social media consumption.  This trend might have an influence on how movies are made.  Will feature-length films become shorter and shorter?  Will new, shorter forms of media largely overtake films?  These are all things to ponder when analyzing some of this data.
+
+Which leads us to our alternate hypothesis/explanation for what we found.  Originally, we thought that more genres would be used for films today than was done for films for classic films, however our data shows this to not be true. We were also not expecting for there to be such a big difference between the average number of movie genres and the max. We began to think of how information is input into IMDb and how that might affect the data for films. Information, including genres, is entered into IMDb by people manually. Someone inputting data in present day for a film made 50 years ago has a perspective that would not be available to someone recording information at the time it was occurring. Also, someone inputting data for a film today might have unknown motives for listing 15 genres to a movie. We believe that individual data is not reflected in IMDb accurately. When we look at another monolith of data, Netflix, we see the other extreme of input: Hyper-personalized data. The aggregate functionality of Netflix is reflective of accurate individual data, whereas the purpose of IMDb is universal. According to the article in the Atlantic, "How Netflix Reversed Engineered Hollywood", Netlix uses 76,847 micro-genres or unique ways to describe types of movies. This allows for data-driven programming and personalized genres. We think that IMDb would benefit from more data science and algorithm usage to both expand its categorization ability and to allow a broader perspective on what a movie "should" be categorized as.  By mixing data and intuition the genre-labeling of IMDb would be more specific, inclusive of multiple genres, and perhaps more accurately represent a movie. 
+
+
+
+
+
+Github Repository for this project:
+https://github.com/vmorales95/MiniProject3
+
+WorksCited:
+theAtlantic, "How Netflix Reverse Engineered Hollywood", Alexis C. Madrigal, 2014. 
+
 
 
 
