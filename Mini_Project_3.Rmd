@@ -86,10 +86,6 @@ geom_line(colour = "red4", size = 1) +
   facet_wrap("info")
 ```
 
-
-
-
-
-
+Yo Paige, I just want to make triple sure you get this. <3 v.
 
 
