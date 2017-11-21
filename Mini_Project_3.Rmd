@@ -5,17 +5,19 @@ date: "11/17/2017"
 output: html_document
 ---
 
-```{r}
+```{r, include = FALSE}
 library(mdsr)
 library(RMySQL)
 db <- dbConnect_scidb(dbname = "imdb")
 ```
 
-```{r}
+```{r, include = FALSE, message = FALSE, warning = FALSE}
 library(ggplot2)
 library(tidyverse)
 library(dbplyr)
 ```
+
+The biggest challenge during this project was sorting the data in SQL and getting it into R Studio. However, with the help of the indexes in the title, movie info, and kind id tables, we were able to quickly determine the information we needed to take from each of these tables. For instance, the movie info index helped us identify the info kind type that genre is registered under.
 
 ```{r}
 sql_genre_data <- db %>%
@@ -27,6 +29,8 @@ WHERE mi.info_type_id = 3
 AND t.kind_id = 1;")
 ```
 
+Next we needed to wrangle the data so that each production year had a list of all the movies produced in that year with the number of genres each movie has recorded as having. This is also when we noticed that the production year exceeds present day, so we needed to filter that to not have any missing data.
+
 ```{r}
 genre_count <- sql_genre_data %>%
   group_by(production_year, id) %>%
@@ -34,13 +38,17 @@ genre_count <- sql_genre_data %>%
   filter(production_year < 2018)
 ```
 
+Then we took the table listed above and used that as a way to find the average number of genres movies seemed to be recorded of having within each production year. We also found the movie within each production year that had the maximum number of genres recorded.  
+
 ```{r}
 genre_max_and_avg_count <- genre_count %>%
   group_by(production_year) %>%
   summarise(max_genre_count = max(genres_observed), average_genre_count = mean(genres_observed))
 ```
 
-```{r}
+We thought comparing the maximum number of genres recorded for a movie and the average recorded for all movies would be interesting. The graph helps illustrate the gap between the maximum amount of genres recorded for a single movie and the average recorded for all movies in that year.
+
+```{r, warning = FALSE}
 ggplot(genre_max_and_avg_count, aes()) + 
   geom_line(aes(x = production_year, y = max_genre_count), colour = "green4", size = 1.5) +
   geom_line(aes(x = production_year, y = average_genre_count), colour = "magenta4", size = 1.5) +
@@ -60,12 +68,16 @@ ggplot(genre_max_and_avg_count, aes()) +
     panel.grid.minor = element_line(colour = "cadetblue3"))
 ```
 
+We also thought it would be interesting to look at if any genres on their own are maybe more popular now than in the first half of the century we are looking at. For some reason there was a genre labeled "Reality-TV" and "Reality-tv". Because "Reality-tv" had a very small number of points, we excluded it from the graph to keep from confusing the reader. Excluding the extremely small number of data points did not change the integrity of the data graphic. We checked.
+
 ```{r}
 genre_breakdown <- sql_genre_data %>%
   group_by(production_year, info) %>%
   summarise(genres_observed = n()) %>%
   filter(production_year < 2018, info == "Action" | info == "Adult"| info == "Adventure" | info == "Animation" | info == "Biography" | info == "Comedy" | info == "Crime" | info == "Documentary" | info == "Drama" | info == "Family" | info == "Fantasy" | info == "Film-Noir" | info == "Game-Show" | info == "History" | info == "Horror" | info == "Music" | info == "Musical" | info == "Mystery" | info == "News" | info == "Reality-TV" | info == "Romance" | info == "Sci-Fi" | info == "Short" | info == "Sport" | info == "Talk-Show" | info == "Thriller" | info == "War" | info == "Western")
 ```
+
+We wanted to give a very basic, and easily comprehend able graphic showing the overall trends throughout the years for each genre. We did not think labeling the y-axis was necessary to understand the trends. This was a style preference.
 
 ```{r}
 ggplot(genre_breakdown, aes(x = production_year, y = genres_observed)) +
