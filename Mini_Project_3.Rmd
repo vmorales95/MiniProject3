@@ -1,6 +1,6 @@
 ---
-title: "Real_Mini_Project_3"
-author: "Paige E. Patrick and Vanessa Morales"
+title: "Genre Multiplicity"
+author: "Paige Patrick and Vanessa Morales"
 date: "11/17/2017"
 output: html_document
 ---
@@ -17,7 +17,7 @@ library(tidyverse)
 library(dbplyr)
 ```
 
-The biggest challenge during this project was sorting the data in SQL and getting it into R Studio. However, with the help of the indexes in the title, movie info, and kind id tables, we were able to quickly determine the information we needed to take from each of these tables. For instance, the movie info index helped us identify the info kind type that genre is registered under.
+The biggest challenge during this project was finding the data necessary to answer the prompt in SQL and getting it into R Studio. However, with the help of the indexes in the title, movie info, and kind id tables, we were able to quickly determine the information we needed to take from each of these tables. For instance, the movie info index helped us identify the info kind type that genre is registered under.
 
 ```{r}
 sql_genre_data <- db %>%
@@ -55,8 +55,8 @@ ggplot(genre_max_and_avg_count, aes()) +
   ggtitle("Genre Multiplicity in Movies,\nRecorded By IMDb") +
   scale_x_continuous("Production Year", breaks = c(1880, 1900, 1920, 1940, 1960, 1980, 2000, 2020)) +
   scale_y_continuous("Number of Genres Recorded", breaks = c(2, 4, 6, 8, 10, 12, 14)) +
-  annotate("text", x = 2010, y = 3, label = "AVERAGE", colour = "magenta4", size = 7, face = "bold") +
-  annotate("text", x = 2010, y = 6, label = "MAXIMUM", colour = "green4", size = 7, face = "bold") +
+  annotate("text", x = 2010, y = 3, label = "AVERAGE", colour = "magenta4", size = 6, face = "bold") +
+  annotate("text", x = 2010, y = 6, label = "MAXIMUM", colour = "green4", size = 6, face = "bold") +
   theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold"), 
     axis.ticks.length = unit(0.25, "cm"),
     legend.title = element_text(size = 15), 
@@ -102,23 +102,25 @@ geom_line(colour = "red4", size = 1) +
 
 ##Genre Multiplicity
 
-We are interested in seeing any trends in movie genres, and seeing if there are more movie genres currently used than previously due to either shifts in production company organization, or any other factors we could discern. Initially, we believed that movies made presently would be categorized with multiple genres and that older movies that fit squarely into one genre.  
+We are interested in seeing if movies made today have more genres than those made in the past. Initially, we believed that current movies would have higher genre multiplicity, and the older the movie, the more likely it would fit squarely into one genre.  
 
-In researching our above inquiry, we hypothesized that there would be more genres used today than classic or older movies tended to. However, our data wrangling showed an overall steady use of genre-identification to be around 2-3. What was interesting is that while the overall trend has stayed the same what has increased is the maximum number of genres used in the description of a film.  Why might this be?  We believe that experimental marketing causes some films to be tagged with an unusually high number of genres, getting as high as 15 as shown on our graph. However, this is shown as the max, and not the average; perhaps 2-3 genres is an amount consumers have responded well to traditionally and so it is used as a standard. 
+In researching our above inquiry, we hypothesized that there would be more genres used today than in the past. However, our data wrangling showed an overall average number of genres recorded to be around two to three throughout the century. What we did find however, was the maximum number of genres recorded for a single movie each year has increased. We believe that experimental marketing has caused some films to be tagged with an unusually high number of genres, getting as high as 15, as shown on our graph. This is shown as the max and not the average. It is possible that films advertised with two genres were the most successful, and studios used that as a standard. It is likely that films with higher genre multiplicity would be challeging to market and confusing for audiences. More genres does not mean more money or more popularity. This would explain why the average number of genres has stayed consistent throughout the century.
 
-We compiled the data on the popularity of each movie genre according to IMDb starting from 1874 to 2012 which is the most recent year available. Most genres stay relatively consistent, such as Family, Action, and Romance. A notable outlier is the graph of the Film-Noir genre. It relays a distinct and brief period of popularity, from 1944-1954. The beginning of the genre can be attributed to the start of a new trend and style that hadn't existed previously. The moody black and white quality of noir films ceased to be popular after color movies took off in popularity in the mid 1950s as well as the increasing popularity of television. 
+We graphed the data to show the popularity of each movie genre, recorded by IMDb starting from 1874 to 2017. Most genre trends stay relatively consistent, such as Family, Action, and Romance. A notable exception is the Film-Noir genre. It relays a distinct and brief period of popularity, from 1944 to 1954. The beginning of the genre can be attributed to the start of a new trend and style that hadn't previously existed. In order for a movie to be considered a part of the Film-Noir genre, it must be in black and white. It is likely the moody black and white quality of noir films ceased to be popular after color motion picture films became popular in the mid 1950s, as well as the increasing popularity of television. 
 
-The Talk-Show, Reality Tv, and Game-Show graphs all show a direct correlation with the increase in home-televisions in households around the mid-1950s. These types of tv-specific genres would not exist unless television was something people connected with. 
+The Talk-Show, Reality-TV, and Game-Show graphs all show a direct correlation with the increase in home televisions in households around the mid-1950s. These types of TV-specific genres would not exist prior to the invention of the television.  
 
-Lastly, we notice a large uptick in the popularity of the Short movie genre. We believe this is telling in that this might relate to people's decreasing attention spans, the popularity of You-Tube, the fixation on Facebook and other social media consumption.  This trend might have an influence on how movies are made.  Will feature-length films become shorter and shorter?  Will new, shorter forms of media largely overtake films?  These are all things to ponder when analyzing some of this data.
+Lastly, we notice a large uptick in the popularity of the Short movie genre. We believe that this might relate to people's decreasing attention spans, the popularity of YouTube, the fixation on Facebook, and other social media consumption. The Short film genre peaked in popularity around the time YouTube, Vimeo, Facebook, and other social media platforms became widely used. This trend might have an influence on how movies are made. Another explination for the increase in Short films in recent years is that the equipment and means for production in order to create a film are more obtainable than in the past. Cameras, editing software, and social media websites offer an easy way to distribute homemade or smaller production films.
 
-Which leads us to our alternate hypothesis/explanation for what we found.  Originally, we thought that more genres would be used for films today than was done for films for classic films, however our data shows this to not be true. We were also not expecting for there to be such a big difference between the average number of movie genres and the max. We began to think of how information is input into IMDb and how that might affect the data for films. Information, including genres, is entered into IMDb by people manually. Someone inputting data in present day for a film made 50 years ago has a perspective that would not be available to someone recording information at the time it was occurring. Also, someone inputting data for a film today might have unknown motives for listing 15 genres to a movie. We believe that individual data is not reflected in IMDb accurately. When we look at another monolith of data, Netflix, we see the other extreme of input: Hyper-personalized data. The aggregate functionality of Netflix is reflective of accurate individual data, whereas the purpose of IMDb is universal. According to the article in the Atlantic, "How Netflix Reversed Engineered Hollywood", Netlix uses 76,847 micro-genres or unique ways to describe types of movies. This allows for data-driven programming and personalized genres. We think that IMDb would benefit from more data science and algorithm usage to both expand its categorization ability and to allow a broader perspective on what a movie "should" be categorized as.  By mixing data and intuition the genre-labeling of IMDb would be more specific, inclusive of multiple genres, and perhaps more accurately represent a movie. 
+After anaylizing the data and looking at the graphs, we began to think of how information is recorded into IMDb and how that impacts the results of the data for genre multiplicity. Someone from IMDb in recent years has gone back and recorded the genre information for films that are over 50, 60, 70 years old. This means that how the genres are recorded might not be an accurate representation of how they would have been categorized by someone within the year the film was produced. This leads us to our first alternate hypothesis: the data recording the genres for movies is not reflected in IMDb accurately. 
+                                                        
+We had a second alternate hypothesis that would explain why the data collected for IMDb did not reflect high genre multiplicity trend we thought we would find. We believe that the functionality of IMDb as a website limits its ability to register movies outside of the more commonly used genres. When we look at Netflix, we see hyper-personalized genres. The purpose of Netflix is to build personalized accounts for indiviual users. Therefore, these super complex and specific genres can exist because they are specific to very few Netflix users. However, IMDb needs to be able to be understood universally. Keeping the genres simple and easy to understand makes their website easier to navigate. According to the article in the Atlantic, "How Netflix Reversed Engineered Hollywood", Netflix uses 76,847 micro-genres or unique ways to describe types of movies. This allows for data-driven programming and personalized genres. By mixing data and intuition the genre-labeling of IMDb would be more specific, inclusive of multiple genres, and perhaps more accurately represent a movie. 
 
 
 
 
 
-Github Repository for this project:
+Git hub Repository for this project:
 https://github.com/vmorales95/MiniProject3
 
 WorksCited:
